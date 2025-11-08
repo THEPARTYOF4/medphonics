@@ -72,12 +72,23 @@ router.get('/', async (req, res) => {
 // Handles chat requests and integrates with Python AI service
 router.post('/', validateBody(chatSchema), async (req, res) => {
   try {
-    // Spawn Python process
+    // Spawn Python process with chat mode
     const pythonScript = path.join(__dirname, '..', 'ai_calls.py');
-    const python = spawn('python', [pythonScript]);
+    const python = spawn('python', [pythonScript, '--mode', 'chat']);
     
-    // Send request data to Python process
-    python.stdin.write(JSON.stringify(req.body));
+    // Send request data to Python process with required format
+    const requestData = {
+      prompt: req.body.prompt,
+      metadata: {
+        type: 'medical',
+        searchGlossary: true,
+        updateGlossary: true,
+        ...req.body.metadata
+      },
+      file: req.body.file
+    };
+    
+    python.stdin.write(JSON.stringify(requestData));
     python.stdin.end();
 
     let result = '';

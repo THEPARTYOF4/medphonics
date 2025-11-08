@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
     const pythonScript = path.join(__dirname, '..', 'ai_calls.py');
     const python = spawn('python', [pythonScript, '--mode', 'locations']);
     
-    // Prepare request with query parameters
+    // Prepare request with query parameters matching Python expectations
     const requestData = {
       query: req.query.q || 'medical facilities',
       metadata: {
