@@ -220,7 +220,7 @@ export function HomeDashboard() {
 
         {/* Nearby Doctors Section */}
         <div className="mb-16">
-          <h2 className="text-xl font-bold mb-4">Doctors & Clinics Near You</h2>
+          <h2 className="text-5xl font-semibold mt-10 mb-6">Doctors & Clinics Near You</h2>
           <DoctorsMap />
         </div>
     </div>
