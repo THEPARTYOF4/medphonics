@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -24,6 +25,9 @@ export default function Signup() {
   const [date, setDate] = useState<Date | undefined>();
   const [conditions, setConditions] = useState<string[]>([]);
   const [medicalLevel, setMedicalLevel] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: "",
     password: "",
@@ -72,9 +76,43 @@ export default function Signup() {
     formData.address &&
     formData.language;
 
+  const handleSubmit = async () => {
+    if (!allFilled) return;
+
+    setLoading(true);
+    try {
+      // Placeholder POST API — replace later
+      const response = await fetch("https://example.com/api/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...formData,
+          birthdate: date,
+          conditions,
+          medicalLevel,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Signup failed");
+      }
+
+      // You can handle the response as needed
+      console.log("Signup successful:", await response.json());
+
+      // Navigate to home or dashboard
+      navigate("/home");
+    } catch (error) {
+      console.error("Signup error:", error);
+      alert("There was an error signing up. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="flex min-h-screen bg-background text-foreground">
-      {/* Left side - full image */}
+      {/* Left side - image */}
       <div className="hidden md:flex md:w-1/2 bg-muted">
         <img
           src="https://static.vecteezy.com/system/resources/thumbnails/020/933/072/small/abstract-blur-gradient-background-vector.jpg"
@@ -227,7 +265,6 @@ export default function Signup() {
               Move the slider to match how familiar you are with medical
               terminology.
             </p>
-
             <Slider
               value={[medicalLevel]}
               onValueChange={(v) => setMedicalLevel(v[0])}
@@ -253,9 +290,10 @@ export default function Signup() {
             <Button
               size="lg"
               className="w-full text-lg"
-              disabled={!allFilled}
+              disabled={!allFilled || loading}
+              onClick={handleSubmit}
             >
-              Sign Up
+              {loading ? "Signing Up..." : "Sign Up"}
             </Button>
           </div>
         </div>
