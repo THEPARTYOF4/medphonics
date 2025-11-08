@@ -28,12 +28,14 @@ export function AiChat() {
     };
 
     window.addEventListener("ai-message", handler as EventListener);
-    return () => window.removeEventListener("ai-message", handler as EventListener);
+    return () =>
+      window.removeEventListener("ai-message", handler as EventListener);
   }, []);
 
   const handleSubmit = async (message: string, file?: File, isEli5?: boolean) => {
     setIsLoading(true);
 
+    // Add user message immediately
     const userMessage: Message = {
       id: Date.now().toString(),
       type: "user",
@@ -43,31 +45,22 @@ export function AiChat() {
     setMessages((prev) => [...prev, userMessage]);
 
     try {
-      // ✅ Build FormData to support both text + file upload
-      const formData = new FormData();
-      formData.append("message", message);
-      if (file) formData.append("file", file);
-      if (isEli5) formData.append("isEli5", String(isEli5));
+      // 👇 Mocked response logic
+      let aiText: string;
 
-      // ✅ POST to your backend AI endpoint
-      const response = await fetch("https://YOUR_BACKEND_API_URL_HERE/api/ai-chat", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch AI response");
+      if (message.toLowerCase().includes("cardiac")) {
+        aiText =
+          "🫀 *Cardiac* refers to anything related to the **heart**. For example, a *cardiac arrest* occurs when the heart suddenly stops beating, preventing blood from circulating through the body. Maintaining cardiac health is essential to prevent conditions such as arrhythmias, hypertension, or coronary artery disease.";
+      } else {
+        aiText =
+          "💬 I’m here to help with medical explanations. Try asking me about a cardiac term — for example, 'Explain a cardiac condition.'";
       }
 
-      // ✅ Expect JSON: { reply: "..." }
-      const data = await response.json();
-
+      // Instead of API call, return the mock response
       const aiResponse: Message = {
         id: (Date.now() + 1).toString(),
         type: "assistant",
-        content:
-          data.reply ||
-          "Sorry, I couldn't generate a response. Please try again later.",
+        content: aiText,
       };
 
       setMessages((prev) => [...prev, aiResponse]);
@@ -93,15 +86,19 @@ export function AiChat() {
         <div className="space-y-4">
           {messages.length === 0 && (
             <div className="text-center text-muted-foreground mt-8">
-              👋 Hi! I'm your medical AI assistant. Feel free to ask any
-              health-related questions or upload medical documents for review.
+              👋 Hi! I’m your medical AI assistant.  
+              Ask anything — like “What are common heart conditions?”  
+              or upload a document for review.
             </div>
           )}
+
           {messages.map((message) => (
             <Card
               key={message.id}
-              className={`p-4 ${
-                message.type === "assistant" ? "bg-primary/5" : "bg-background"
+              className={`p-4 transition ${
+                message.type === "assistant"
+                  ? "bg-primary/5 border-primary/30"
+                  : "bg-background border-border"
               }`}
             >
               {message.file && (
@@ -109,7 +106,9 @@ export function AiChat() {
                   📎 Attached: {message.file.name}
                 </div>
               )}
-              <div className="text-sm whitespace-pre-line">{message.content}</div>
+              <div className="text-sm leading-relaxed whitespace-pre-line">
+                {message.content}
+              </div>
             </Card>
           ))}
         </div>

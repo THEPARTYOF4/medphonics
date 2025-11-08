@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
     // Spawn Python process with chat mode
     const pythonScript = path.join(__dirname, '..', 'ai_calls.py');
     console.log('Spawning Python process:', pythonScript);
-    const python = spawn('python', [pythonScript, '--mode', 'chat']);
+    const python = spawn('python3', [pythonScript, '--mode', 'chat']);
     
     // Send query parameters as request in the same format as POST
     const queryData = {

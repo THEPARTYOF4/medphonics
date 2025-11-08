@@ -1,9 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { LandingPage } from "./components/LandingPage";
 import { Home } from "./components/Home";
-import { Button } from "@/components/ui/button"; // For placeholder pages (if you use shadcn)
 import Signup from "./components/Signup";
 import LoginPage from "./components/LoginPage";
+import { LandingPage } from "./components/LandingPage";
 
 function App() {
   return (
