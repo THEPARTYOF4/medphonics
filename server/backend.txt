@@ -1,0 +1,7 @@
+
+Chat information -> prompt + "input file" -> BACKEND -> POST
+GET /glossary -> glossary dictionary from backend to frontend
+GET /articles -> AI can gather related articles -> send to frontend as links
+GET/profile/userID -> gets user information
+POST /login -> loginUser(221)
+POST /signup

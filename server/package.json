@@ -1,0 +1,22 @@
+{
+  "name": "hackathon-backend",
+  "version": "0.1.0",
+  "description": "Simple backend scaffold for Hackathon_2026 (in-memory, dev only)",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "ajv": "^8.12.0",
+    "ajv-formats": "^2.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
