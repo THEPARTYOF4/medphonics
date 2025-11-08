@@ -7,30 +7,155 @@ import { Button } from "@/components/ui/button";
 // Mock medical terms for the glossary
 const medicalTerms = [
   {
-    term: 'Anemia',
-    definition: 'A condition in which you lack enough healthy red blood cells to carry adequate oxygen to your body\'s tissues.',
-    category: 'Hematology'
-  },
-  {
-    term: 'Arrhythmia',
-    definition: 'An irregular heartbeat or abnormal heart rhythm.',
-    category: 'Cardiology'
-  },
-  {
-    term: 'Biopsy',
-    definition: 'A medical procedure that involves taking a small sample of tissue to examine under a microscope.',
-    category: 'Diagnostics'
-  },
-  {
-    term: 'Hypertension',
-    definition: 'High blood pressure, a common condition that can increase the risk of heart disease and stroke.',
-    category: 'Cardiology'
-  },
-  {
-    term: 'MRI',
-    definition: 'Magnetic Resonance Imaging - a medical imaging technique that uses magnetic fields and radio waves to create detailed images.',
-    category: 'Diagnostics'
-  }
+        "term": "hypertension",
+        "definition": "High blood pressure condition where blood pressure against artery walls is consistently too high.",
+        "category": "Cardiovascular"
+    },
+    {
+        "term": "diabetes",
+        "definition": "A group of diseases that affect how your body uses blood sugar (glucose).",
+        "category": "Endocrine/Metabolic"
+    },
+    {
+        "term": "tachycardia",
+        "definition": "Abnormally rapid heart rate.",
+        "category": "Cardiovascular"
+    },
+    {
+        "term": "bradycardia",
+        "definition": "Abnormally slow heart rate.",
+        "category": "Cardiovascular"
+    },
+    {
+        "term": "arrhythmia",
+        "definition": "Irregular heartbeat or abnormal heart rhythm.",
+        "category": "Cardiovascular"
+    },
+    {
+        "term": "myocardial infarction",
+        "definition": "Medical term for a heart attack, when blood flow to part of the heart muscle is blocked.",
+        "category": "Cardiovascular"
+    },
+    {
+        "term": "angina",
+        "definition": "Chest pain caused by reduced blood flow to the heart.",
+        "category": "Cardiovascular"
+    },
+    {
+        "term": "stroke",
+        "definition": "When blood supply to part of the brain is interrupted or reduced.",
+        "category": "Neurological/Cardiovascular"
+    },
+    {
+        "term": "anemia",
+        "definition": "Condition where you lack enough healthy red blood cells to carry adequate oxygen to your body's tissues.",
+        "category": "Hematology"
+    },
+    {
+        "term": "asthma",
+        "definition": "A condition in which airways narrow and swell and produce extra mucus.",
+        "category": "Respiratory"
+    },
+    {
+        "term": "bronchitis",
+        "definition": "Inflammation of the lining of bronchial tubes that carry air to and from lungs.",
+        "category": "Respiratory"
+    },
+    {
+        "term": "arthritis",
+        "definition": "Inflammation of one or more joints causing pain and stiffness.",
+        "category": "Musculoskeletal"
+    },
+    {
+        "term": "osteoporosis",
+        "definition": "Condition where bones become weak and brittle.",
+        "category": "Musculoskeletal"
+    },
+    {
+        "term": "gastritis",
+        "definition": "Inflammation of the stomach lining.",
+        "category": "Gastrointestinal"
+    },
+    {
+        "term": "hypothyroidism",
+        "definition": "Condition where thyroid gland doesn't produce enough thyroid hormone.",
+        "category": "Endocrine"
+    },
+    {
+        "term": "hyperthyroidism",
+        "definition": "Condition where thyroid gland produces too much thyroid hormone.",
+        "category": "Endocrine"
+    },
+    {
+        "term": "migraine",
+        "definition": "Recurring type of headache that causes moderate to severe pain.",
+        "category": "Neurological"
+    },
+    {
+        "term": "pneumonia",
+        "definition": "Infection that inflames air sacs in one or both lungs.",
+        "category": "Respiratory"
+    },
+    {
+        "term": "atherosclerosis",
+        "definition": "Buildup of fats and cholesterol in artery walls.",
+        "category": "Cardiovascular"
+    },
+    {
+        "term": "hypoglycemia",
+        "definition": "Abnormally low blood sugar levels.",
+        "category": "Endocrine/Metabolic"
+    },
+    {
+        "term": "hyperglycemia",
+        "definition": "Abnormally high blood sugar levels.",
+        "category": "Endocrine/Metabolic"
+    },
+    {
+        "term": "sepsis",
+        "definition": "Life-threatening response to infection affecting whole body.",
+        "category": "Systemic/Infectious"
+    },
+    {
+        "term": "edema",
+        "definition": "Swelling caused by excess fluid trapped in body tissues.",
+        "category": "General/Vascular (Sign)"
+    },
+    {
+        "term": "dyspnea",
+        "definition": "Difficulty breathing or shortness of breath.",
+        "category": "Respiratory (Symptom)"
+    },
+    {
+        "term": "tachypnea",
+        "definition": "Abnormally rapid breathing.",
+        "category": "Respiratory (Sign)"
+    },
+    {
+        "term": "syncope",
+        "definition": "Medical term for fainting or passing out.",
+        "category": "Neurological (Symptom)"
+    },
+    {
+        "term": "hypertrophy",
+        "definition": "Enlargement or overgrowth of an organ or tissue.",
+        "category": "General Pathology"
+    },
+    {
+        "term": "stenosis",
+        "definition": "Abnormal narrowing of a passage in the body.",
+        "category": "General Pathology"
+    },
+    {
+        "term": "fibrillation",
+        "definition": "Very rapid irregular contractions of muscle fibers.",
+        "category": "Cardiovascular"
+    },
+    {
+        "term": "ischemia",
+        "definition": "Inadequate blood supply to an organ or part of the body.",
+        "category": "Cardiovascular"
+    }
 ].sort((a, b) => a.term.localeCompare(b.term));
 
 export function Glossary() {
