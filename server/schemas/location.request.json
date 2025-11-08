@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LocationSearchRequest",
+  "type": "object",
+  "required": ["query"],
+  "properties": {
+    "query": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The search query (e.g., 'hospitals near Boston')"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "region": {
+          "type": "string",
+          "description": "Region code to bias results (e.g., 'US')"
+        },
+        "language": {
+          "type": "string",
+          "default": "en",
+          "description": "Language for results (e.g., 'en', 'es')"
+        },
+        "zoom": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 21,
+          "default": 13,
+          "description": "Map zoom level (0-21)"
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

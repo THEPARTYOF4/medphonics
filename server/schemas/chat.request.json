@@ -4,7 +4,11 @@
   "type": "object",
   "required": ["prompt"],
   "properties": {
-    "prompt": { "type": "string", "minLength": 1 },
+    "prompt": { 
+      "type": "string", 
+      "minLength": 1,
+      "description": "The user's input query or message"
+    },
     "file": {
       "type": "object",
       "required": ["name"],
@@ -13,9 +17,28 @@
         "content": { "type": "string" },
         "type": { "type": "string" }
       },
-      "additionalProperties": false
+      "additionalProperties": false,
+      "description": "Optional file attachment for context"
     },
-    "metadata": { "type": "object", "additionalProperties": true }
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["medical", "general"],
+          "description": "Query type - 'medical' enables glossary features"
+        },
+        "searchGlossary": {
+          "type": "boolean",
+          "description": "Whether to search existing glossary entries"
+        },
+        "updateGlossary": {
+          "type": "boolean",
+          "description": "Whether to extract and add new terms to glossary"
+        }
+      },
+      "additionalProperties": true
+    }
   },
   "additionalProperties": false
 }

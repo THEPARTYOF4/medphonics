@@ -1,17 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const { validateBody } = require('../middleware/validate');
-const chatSchema = require('../schemas/chat.request.json');
+const articleSchema = require('../schemas/article.request.json');
 const { spawn } = require('child_process');
 const path = require('path');
 
-// POST /api/chat
-// Handles chat requests and integrates with Python AI service
-router.post('/', validateBody(chatSchema), async (req, res) => {
+// POST /api/articles/recommend
+// Handles article recommendation requests
+router.post('/recommend', validateBody(articleSchema), async (req, res) => {
   try {
     // Spawn Python process
     const pythonScript = path.join(__dirname, '..', 'ai_calls.py');
-    const python = spawn('python', [pythonScript]);
+    const python = spawn('python', [pythonScript, '--mode', 'articles']);
     
     // Send request data to Python process
     python.stdin.write(JSON.stringify(req.body));
