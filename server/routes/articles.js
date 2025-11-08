@@ -76,8 +76,18 @@ router.post('/recommend', validateBody(articleSchema), async (req, res) => {
     const pythonScript = path.join(__dirname, '..', 'ai_calls.py');
     const python = spawn('python', [pythonScript, '--mode', 'articles']);
     
-    // Send request data to Python process
-    python.stdin.write(JSON.stringify(req.body));
+    // Send request data to Python process with required format
+    const requestData = {
+      topic: req.body.topic,
+      metadata: {
+        maxResults: req.body.metadata?.maxResults || 5,
+        sourcePriority: req.body.metadata?.sourcePriority || ['medical', 'academic', 'news'],
+        includeDefinitions: req.body.metadata?.includeDefinitions !== false,
+        ...req.body.metadata
+      }
+    };
+    
+    python.stdin.write(JSON.stringify(requestData));
     python.stdin.end();
 
     let result = '';
