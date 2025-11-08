@@ -1,0 +1,23 @@
+/* Override tab styles for a more modern look */
+.tabs-list {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+.tab-trigger {
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 2px solid transparent !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+.tab-trigger[data-state='active'] {
+  background: transparent !important;
+  border-bottom-color: hsl(var(--primary)) !important;
+  color: hsl(var(--primary)) !important;
+}
+
+.tab-trigger:hover {
+  background: hsl(var(--muted)/0.3) !important;
+}
