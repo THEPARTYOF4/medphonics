@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ArticleRequest",
+  "type": "object",
+  "required": ["topic"],
+  "properties": {
+    "topic": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The medical topic to find articles about"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "maxResults": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10,
+          "default": 5,
+          "description": "Maximum number of article recommendations to return"
+        },
+        "includeDefinitions": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether to include medical term definitions from the articles"
+        },
+        "sourcePriority": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["academic", "medical", "news"],
+            "description": "Priority order for types of sources"
+          },
+          "default": ["medical", "academic", "news"]
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

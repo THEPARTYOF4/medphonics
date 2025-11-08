@@ -1,17 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const { validateBody } = require('../middleware/validate');
-const chatSchema = require('../schemas/chat.request.json');
+const locationSchema = require('../schemas/location.request.json');
 const { spawn } = require('child_process');
 const path = require('path');
+const { MAPS_API_KEY } = require('../API_KEY');
 
-// POST /api/chat
-// Handles chat requests and integrates with Python AI service
-router.post('/', validateBody(chatSchema), async (req, res) => {
+// POST /api/locations/search
+// Handles location search requests for Google Maps integration
+router.post('/search', validateBody(locationSchema), async (req, res) => {
   try {
     // Spawn Python process
     const pythonScript = path.join(__dirname, '..', 'ai_calls.py');
-    const python = spawn('python', [pythonScript]);
+    const python = spawn('python', [pythonScript, '--mode', 'locations']);
     
     // Send request data to Python process
     python.stdin.write(JSON.stringify(req.body));
@@ -57,6 +58,47 @@ router.post('/', validateBody(chatSchema), async (req, res) => {
       details: err.message
     });
   }
+});
+
+// GET /api/locations/embed/:id
+// Returns the embed HTML for a specific map
+router.get('/embed/:id', (req, res) => {
+  const { id } = req.params;
+  const { q, zoom, region, hl } = req.query;
+  
+  if (!q) {
+    return res.status(400).json({
+      error: 'Missing query parameter'
+    });
+  }
+
+  // Construct the Google Maps Embed API URL
+  const baseUrl = 'https://www.google.com/maps/embed/v1/search';
+  const key = MAPS_API_KEY;
+  
+  // Build query parameters
+  const params = new URLSearchParams({
+    key,
+    q,
+    zoom: zoom || 13,
+    region: region || 'US',
+    language: hl || 'en'
+  });
+
+  // Generate embed HTML
+  const embedHtml = `
+    <iframe
+      width="600"
+      height="450"
+      style="border:0"
+      loading="lazy"
+      allowfullscreen
+      referrerpolicy="no-referrer-when-downgrade"
+      src="${baseUrl}?${params.toString()}">
+    </iframe>
+  `.trim();
+
+  res.json({ id, embedHtml });
 });
 
 module.exports = router;
